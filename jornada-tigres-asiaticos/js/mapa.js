@@ -45,7 +45,7 @@
     var id = 'mp' + (++contador);
     var modo = opts.modo || 'explorar';
     var mostrarGrupos = opts.grupos !== false;
-    var camadas = { tigres: true, novos: true, novissimos: true, protagonistas: !!opts.protagonistas };
+    var camadas = { tigres: true, novos: true, protagonistas: !!opts.protagonistas };
     var W = M.W, H = M.H;
 
     var defs = '<defs>' +

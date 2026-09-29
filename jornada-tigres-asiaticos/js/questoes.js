@@ -75,9 +75,9 @@ window.FASES = [
     ilustracao: 'gansos',
     resumo: [
       'Os custos de produção subiram no Japão e nos "velhos" Tigres. As multinacionais buscaram mão de obra mais barata e incentivos fiscais.',
-      'Surgem os Novos Tigres: Malásia, Tailândia, Indonésia e Filipinas (alguns estudiosos incluem o Vietnã).',
+      'Surgem os Novos Tigres: Malásia, Tailândia, Indonésia, Filipinas e Vietnã.',
       'Características: industrialização tardia e acelerada, com multinacionais; mão de obra abundante e barata; manufaturados (têxteis, eletrônicos, autopeças) e agroindústria.',
-      'Eles se integraram à divisão regional do trabalho, complementando o Japão e os velhos Tigres. No mapa da aula, Vietnã, Índia e Bangladesh aparecem como Novíssimos Tigres.'
+      'Eles se integraram à divisão regional do trabalho, complementando o Japão e os velhos Tigres.'
     ],
     fala: 'A industrialização está se espalhando pelo Sudeste Asiático. Conheça a nova geração de Tigres!',
     insignia: { nome: 'Explorador dos Novos Tigres', icone: 'bussola' }
@@ -235,7 +235,7 @@ window.QUESTOES = [
       'Índia, Vietnã, Bangladesh e Sri Lanka'
     ],
     dica: 'Uma fica numa península, uma é ilha e duas são cidades.',
-    explicacao: 'Os Tigres Asiáticos são Coreia do Sul, Singapura, Taiwan e Hong Kong. Malásia, Tailândia, Indonésia e Filipinas formam o grupo dos Novos Tigres.',
+    explicacao: 'Os Tigres Asiáticos são Coreia do Sul, Singapura, Taiwan e Hong Kong. Malásia, Tailândia, Indonésia, Filipinas e Vietnã formam o grupo dos Novos Tigres.',
     curiosidade: 'Em chinês, esse grupo é chamado de "Quatro Pequenos Dragões".'
   },
   {
@@ -515,17 +515,17 @@ window.QUESTOES = [
   /* ============================ FASE 4 ============================ */
   {
     id: 'f4q1', fase: 4, tipo: 'multipla', essencial: true,
-    visual: { tipo: 'mapa', destaque: ['MYS', 'THA', 'IDN', 'PHL'], grupo: 'novos' },
-    legenda: 'Mapa com quatro países destacados em roxo.',
+    visual: { tipo: 'mapa', destaque: ['MYS', 'THA', 'IDN', 'PHL', 'VNM'], grupo: 'novos' },
+    legenda: 'Mapa com cinco países destacados em roxo.',
     enunciado: 'Os países destacados no mapa são os Novos Tigres Asiáticos. Quais são eles?',
-    correta: 'Malásia, Tailândia, Indonésia e Filipinas',
+    correta: 'Malásia, Tailândia, Indonésia, Filipinas e Vietnã',
     erradas: [
-      'Coreia do Sul, Singapura, Taiwan e Hong Kong',
+      'Coreia do Sul, Singapura, Taiwan, Hong Kong e Japão',
       'Japão, China, Mongólia e Coreia do Norte',
       'Índia, Paquistão, Nepal, Butão e Bangladesh'
     ],
     dica: 'Todos ficam no Sudeste Asiático, e dois deles são arquipélagos.',
-    explicacao: 'Os Novos Tigres são Malásia, Tailândia, Indonésia e Filipinas. Alguns estudiosos também incluem o Vietnã nesse grupo.',
+    explicacao: 'Os Novos Tigres são Malásia, Tailândia, Indonésia, Filipinas e Vietnã, todos no Sudeste Asiático. Eles se industrializaram mais tarde que os Tigres, atraindo fábricas de multinacionais.',
     curiosidade: 'Indonésia e Filipinas são arquipélagos: juntas, somam mais de 24 mil ilhas.'
   },
   {
@@ -561,7 +561,7 @@ window.QUESTOES = [
   {
     id: 'f4q4', fase: 4, tipo: 'multipla', essencial: true,
     visual: { tipo: 'ilustracao', nome: 'gansos' },
-    legenda: 'Gansos voando em formação: Japão, Tigres, Novos Tigres e Novíssimos (ilustração).',
+    legenda: 'Gansos voando em formação: Japão, Tigres, Novos Tigres e outros países (ilustração).',
     enunciado: 'A "revoada dos gansos" é uma imagem usada para explicar a industrialização asiática. O que ela representa?',
     correta: 'A indústria passando de um país a outro, em sequência',
     erradas: [
@@ -605,7 +605,7 @@ window.QUESTOES = [
   {
     id: 'f4q7', fase: 4, tipo: 'multipla',
     visual: { tipo: 'grafico', nome: 'renda2022' },
-    legenda: 'Renda por pessoa em 2022: Tigres, Novos Tigres, Vietnã e Brasil.',
+    legenda: 'Renda por pessoa em 2022: Tigres, Novos Tigres e Brasil.',
     enunciado: 'Segundo o gráfico, qual Novo Tigre tinha a maior renda por pessoa em 2022?',
     correta: 'Malásia',
     erradas: ['Tailândia', 'Indonésia', 'Filipinas'],
@@ -614,14 +614,14 @@ window.QUESTOES = [
   },
   {
     id: 'f4q8', fase: 4, tipo: 'multipla',
-    visual: { tipo: 'mapa', destaque: ['VNM', 'IND', 'BGD'], grupo: 'novissimos' },
-    legenda: 'Mapa com três países destacados em verde.',
-    enunciado: 'No mapa da aula, os países destacados aparecem como Novíssimos Tigres. Qual deles fica no Sudeste Asiático?',
+    visual: { tipo: 'mapa', destaque: ['MYS', 'THA', 'IDN', 'PHL', 'VNM'], grupo: 'novos' },
+    legenda: 'Mapa com os cinco Novos Tigres destacados em roxo.',
+    enunciado: 'Os países destacados no mapa são os Novos Tigres. Qual deles faz fronteira com a China?',
     correta: 'Vietnã',
-    erradas: ['Índia', 'Bangladesh', 'Nepal'],
-    dica: 'Índia e Bangladesh ficam no Sul da Ásia.',
-    explicacao: 'O Vietnã fica no Sudeste Asiático, na Península da Indochina. Índia e Bangladesh ficam no Sul da Ásia. O Nepal não está destacado no mapa.',
-    curiosidade: 'Bangladesh e Vietnã estão entre os maiores exportadores de roupas do mundo, ao lado da China.'
+    erradas: ['Tailândia', 'Malásia', 'Filipinas'],
+    dica: 'Procure o país em forma de "S", no litoral do Mar da China Meridional.',
+    explicacao: 'O Vietnã faz fronteira com a China ao norte e ocupa o leste da Península da Indochina. Desde as reformas econômicas de 1986, atraiu fábricas de multinacionais, como as de celulares e de roupas.',
+    curiosidade: 'Com seu formato de "S", o Vietnã tem mais de 3 mil quilômetros de litoral.'
   },
   {
     id: 'f4m1', fase: 4, tipo: 'mapa', alvo: 'IDN',
@@ -925,7 +925,7 @@ window.QUESTOES = [
     id: 'x11', fase: 0, tipo: 'multipla',
     visual: { tipo: 'ilustracao', nome: 'cafe' },
     legenda: 'Grãos e xícara de café (ilustração).',
-    enunciado: 'O Vietnã, um dos Novíssimos Tigres, é o 2º maior produtor mundial de qual produto, atrás do Brasil?',
+    enunciado: 'O Vietnã, um dos Novos Tigres, é o 2º maior produtor mundial de qual produto, atrás do Brasil?',
     correta: 'Café',
     erradas: ['Soja', 'Laranja', 'Açúcar'],
     dica: 'É uma bebida muito consumida no Brasil.',

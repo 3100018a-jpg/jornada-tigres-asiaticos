@@ -4,7 +4,7 @@
 (function () {
   var D = window.DADOS;
   var COR = {
-    tigres: '#F26B21', novos: '#8250E0', novissimos: '#12A277',
+    tigres: '#F26B21', novos: '#8250E0',
     brasil: '#4A4760', outros: '#B9B5CC', serie: '#2A78D6', trilho: '#DCE8F8',
     campo: '#3FA535', cidade: '#3E6DE0', taiwan: '#F26B21', coreia: '#3E6DE0',
     texto: '#1C1840', texto2: '#5A5675', grade: '#ECE8F4', sup: '#FFFFFF'
@@ -40,14 +40,14 @@
       '<div class="g-area"><svg viewBox="0 0 ' + o.w + ' ' + o.h + '" role="img" aria-label="' + esc(o.aria || o.titulo) + '" class="g-svg">' + o.svg + '</svg></div>' +
       '<figcaption class="g-fonte">Fonte: ' + esc(o.fonte) + '</figcaption>' + (o.tab || '') + '</figure>';
   }
-  function nomeGrupo(g) { return g === 'tigres' ? 'Tigre Asiático' : g === 'novos' ? 'Novo Tigre' : g === 'novissimos' ? 'Novíssimo Tigre' : g === 'brasil' ? 'Brasil' : 'Outros países'; }
+  function nomeGrupo(g) { return g === 'tigres' ? 'Tigre Asiático' : g === 'novos' ? 'Novo Tigre' : g === 'brasil' ? 'Brasil' : 'Outros países'; }
   function grupoDe(cod) {
     if (cod === 'BRA') return 'brasil';
     for (var k in D.grupos) if (D.grupos[k].paises.indexOf(cod) >= 0) return k;
     return 'outros';
   }
   function legGrupos(extra) {
-    var l = [{ nome: 'Tigres', cor: COR.tigres }, { nome: 'Novos Tigres', cor: COR.novos }, { nome: 'Novíssimos', cor: COR.novissimos }];
+    var l = [{ nome: 'Tigres', cor: COR.tigres }, { nome: 'Novos Tigres', cor: COR.novos }];
     return legenda(l.concat(extra || []));
   }
   function gradeX(x0, x1, y0, y1, max, passo, fmt) {

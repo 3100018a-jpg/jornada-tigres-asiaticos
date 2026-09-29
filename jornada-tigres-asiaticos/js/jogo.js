@@ -300,7 +300,7 @@
         });
       } else if (q.visual && q.visual.tipo === 'mapa') {
         p.atual.mapa = window.Mapa.criar($('#mapa-q'), {
-          modo: 'destaque', destaque: q.visual.destaque, grupoDestaque: q.visual.grupo === 'novos' ? 'novos' : q.visual.grupo === 'novissimos' ? 'novissimos' : 'tigres',
+          modo: 'destaque', destaque: q.visual.destaque, grupoDestaque: q.visual.grupo === 'novos' ? 'novos' : 'tigres',
           rotulos: false, grupos: false, zoom: false, foco: q.visual.foco || 'asia'
         });
       }
@@ -729,7 +729,7 @@
     var box = $('#conteudo-aba');
     if (aba === 'mapa') {
       box.innerHTML = '<div class="explorar-grade"><div><div class="camadas" role="group" aria-label="Camadas do mapa">' +
-        [['tigres', 'Tigres', '#F26B21', true], ['novos', 'Novos Tigres', '#8250E0', true], ['novissimos', 'Novíssimos', '#12A277', true], ['protagonistas', 'Japão e China', '#FFD9A0', false]].map(function (c) {
+        [['tigres', 'Tigres', '#F26B21', true], ['novos', 'Novos Tigres', '#8250E0', true], ['protagonistas', 'Japão e China', '#FFD9A0', false]].map(function (c) {
           return '<button type="button" class="camada" data-camada="' + c[0] + '" aria-pressed="' + c[3] + '" style="--c:' + c[2] + '"><span class="bola"></span>' + c[1] + '</button>';
         }).join('') + '</div><div class="visual" id="mapa-explorar"></div></div><div class="cartao" id="ficha">' + fichaVazia() + '</div></div>';
       var mapa = window.Mapa.criar($('#mapa-explorar'), {
@@ -786,7 +786,7 @@
   }
   function fichaVazia() {
     return '<div class="ficha-vazia"><h2 style="margin:0;font-size:1.25rem">Clique em um país</h2><p style="margin:0">A ficha mostra capital, principais produtos, uma curiosidade e a renda por pessoa em 1960 e 2022.</p>' +
-      '<ul class="legenda-mapa"><li style="--c:#F26B21"><span class="bola"></span>Tigres Asiáticos: Coreia do Sul, Taiwan, Hong Kong e Singapura</li><li style="--c:#8250E0"><span class="bola"></span>Novos Tigres: Malásia, Tailândia, Indonésia e Filipinas</li><li style="--c:#12A277"><span class="bola"></span>Novíssimos Tigres (mapa da aula): Vietnã, Índia e Bangladesh</li></ul>' +
+      '<ul class="legenda-mapa"><li style="--c:#F26B21"><span class="bola"></span>Tigres Asiáticos: Coreia do Sul, Taiwan, Hong Kong e Singapura</li><li style="--c:#8250E0"><span class="bola"></span>Novos Tigres: Malásia, Tailândia, Indonésia, Filipinas e Vietnã</li></ul>' +
       '<p class="aviso-mapa">Mapa ilustrativo, com fronteiras simplificadas. Hong Kong e Singapura aparecem como pontos por serem muito pequenos.</p></div>';
   }
   function ficha(cod) {

@@ -4,8 +4,7 @@
 window.DADOS = {
   grupos: {
     tigres: { nome: 'Tigres Asiáticos', curto: 'Tigres', cor: '#F26B21', paises: ['KOR', 'TWN', 'HKG', 'SGP'] },
-    novos: { nome: 'Novos Tigres', curto: 'Novos Tigres', cor: '#8250E0', paises: ['MYS', 'THA', 'IDN', 'PHL'] },
-    novissimos: { nome: 'Novíssimos Tigres (mapa da aula)', curto: 'Novíssimos', cor: '#12A277', paises: ['VNM', 'IND', 'BGD'] }
+    novos: { nome: 'Novos Tigres', curto: 'Novos Tigres', cor: '#8250E0', paises: ['MYS', 'THA', 'IDN', 'PHL', 'VNM'] }
   },
 
   nomes: {
@@ -60,17 +59,17 @@ window.DADOS = {
       fato: 'Arquipélago com mais de 7 mil ilhas. Eletrônicos estão entre seus principais produtos de exportação, e o país é um dos maiores polos de centrais de atendimento do mundo.'
     },
     VNM: {
-      grupo: 'novissimos', capital: 'Hanói', tipo: 'País',
+      grupo: 'novos', capital: 'Hanói', tipo: 'País',
       produz: ['Celulares', 'Roupas e calçados', 'Café', 'Arroz'],
-      fato: 'Quase metade dos celulares da Samsung é fabricada no Vietnã. O país também é o 2º maior produtor de café do mundo, atrás do Brasil. Alguns estudiosos o incluem entre os Novos Tigres.'
+      fato: 'Quase metade dos celulares da Samsung é fabricada no Vietnã. O país também é o 2º maior produtor de café do mundo, atrás do Brasil. As reformas econômicas de 1986 abriram o país às empresas estrangeiras.'
     },
     IND: {
-      grupo: 'novissimos', capital: 'Nova Délhi', tipo: 'País',
+      grupo: null, capital: 'Nova Délhi', tipo: 'País',
       produz: ['Tecnologia da informação', 'Remédios', 'Automóveis', 'Têxteis'],
       fato: 'País mais populoso do mundo. A cidade de Bengaluru é chamada de "Vale do Silício indiano" pela quantidade de empresas de tecnologia.'
     },
     BGD: {
-      grupo: 'novissimos', capital: 'Daca', tipo: 'País',
+      grupo: null, capital: 'Daca', tipo: 'País',
       produz: ['Roupas', 'Tecidos', 'Juta'],
       fato: 'Está entre os maiores exportadores de roupas do mundo. A indústria de confecção emprega milhões de pessoas, muitas delas mulheres.'
     },

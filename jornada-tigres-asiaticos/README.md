@@ -210,9 +210,8 @@ Códigos dos países do mapa:
 | Grupo | Códigos |
 |---|---|
 | Tigres Asiáticos | `KOR` Coreia do Sul · `TWN` Taiwan · `HKG` Hong Kong · `SGP` Singapura |
-| Novos Tigres | `MYS` Malásia · `THA` Tailândia · `IDN` Indonésia · `PHL` Filipinas |
-| Novíssimos (mapa da aula) | `VNM` Vietnã · `IND` Índia · `BGD` Bangladesh |
-| Outros | `JPN` Japão · `CHN` China · `PRK` Coreia do Norte · `MNG` Mongólia · `RUS` Rússia · `KAZ` Cazaquistão · `UZB` Uzbequistão · `KGZ` Quirguistão · `TJK` Tadjiquistão · `AFG` Afeganistão · `PAK` Paquistão · `NPL` Nepal · `BTN` Butão · `LKA` Sri Lanka · `MMR` Mianmar · `LAO` Laos · `KHM` Camboja · `BRN` Brunei · `TLS` Timor-Leste · `PNG` Papua-Nova Guiné |
+| Novos Tigres | `MYS` Malásia · `THA` Tailândia · `IDN` Indonésia · `PHL` Filipinas · `VNM` Vietnã |
+| Outros | `JPN` Japão · `CHN` China · `PRK` Coreia do Norte · `MNG` Mongólia · `RUS` Rússia · `KAZ` Cazaquistão · `UZB` Uzbequistão · `KGZ` Quirguistão · `TJK` Tadjiquistão · `AFG` Afeganistão · `PAK` Paquistão · `IND` Índia · `BGD` Bangladesh · `NPL` Nepal · `BTN` Butão · `LKA` Sri Lanka · `MMR` Mianmar · `LAO` Laos · `KHM` Camboja · `BRN` Brunei · `TLS` Timor-Leste · `PNG` Papua-Nova Guiné |
 
 ### Conferir o banco depois de editar
 

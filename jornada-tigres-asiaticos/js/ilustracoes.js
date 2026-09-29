@@ -364,7 +364,7 @@
       return A.tr(x, y, sc, A.ell(0, 0, 22, 9, cor) + A.path('M16 -4 Q30 -16 36 -12 Q30 -6 22 -2Z', cor) + A.poly('36,-12 44,-10 36,-8', '#F2A900') + A.circ(33, -12, 1.4, '#1C1840') +
         A.path('M-6 -4 Q-20 -30 4 -26 Q2 -14 6 -4Z', '#FFFFFF', { opacity: 0.85, class: 'an-asa' }) + A.path('M-22 0 L-32 -6 L-30 4Z', cor));
     }
-    var itens = [['Japão', '#FF3D8B', 360, 70, 1.25], ['Tigres', '#F26B21', 280, 110, 1.1], ['Novos Tigres', '#8250E0', 200, 150, 1.0], ['Novíssimos', '#12A277', 120, 190, 0.92]];
+    var itens = [['Japão', '#FF3D8B', 360, 70, 1.25], ['Tigres', '#F26B21', 280, 110, 1.1], ['Novos Tigres', '#8250E0', 200, 150, 1.0], ['Outros países', '#12A277', 120, 190, 0.92]];
     itens.forEach(function (it, i) {
       s += A.g(ganso(it[2], it[3], it[4], '#FFFFFF') + A.etiqueta(it[2] + 6, it[3] + 26 * it[4], it[0], it[1], { size: 11 }), { class: 'an-flutua', style: 'animation-delay:' + (i * 0.3) + 's' });
     });

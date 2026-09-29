@@ -32,7 +32,6 @@
   --vermelho-esc: #C9253A;
   --tigres: #F26B21;
   --novos: #8250E0;
-  --novissimos: #12A277;
   --texto-claro: #FFFFFF;
   --texto-claro-2: #D9D3FF;
   --f-display: 'Bungee', 'Arial Black', 'Segoe UI Black', Impact, sans-serif;
@@ -608,7 +607,6 @@ main { display: block; outline: none; }
 .mp-pais { fill: #FFF1D6; stroke: #FFFFFF; stroke-width: calc(0.9px / var(--zoom, 1)); stroke-linejoin: round; transition: fill 0.25s, filter 0.2s; cursor: pointer; }
 .mp-pais.gr-tigres { fill: var(--tigres); }
 .mp-pais.gr-novos { fill: var(--novos); }
-.mp-pais.gr-novissimos { fill: var(--novissimos); }
 .mp-pais.gr-protagonista { fill: #FFD9A0; }
 .mp-pais.sobre { filter: brightness(1.1) saturate(1.1); stroke-width: calc(2px / var(--zoom, 1)); }
 .mp-pais.selecionado { stroke: #1C1840; stroke-width: calc(2.6px / var(--zoom, 1)); }
