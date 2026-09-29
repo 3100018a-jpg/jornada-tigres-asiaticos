@@ -737,3 +737,49 @@ body.sem-animacao .linha-anim { stroke-dashoffset: 0; }
   .tela { padding: 0; max-width: none; animation: none; }
   .certificado { box-shadow: none; }
 }
+
+/* ------------------------------------------------------------------ painel de música */
+.btn-ic.desligada { opacity: 0.6; }
+.painel-musica {
+  position: fixed; z-index: 70;
+  top: calc(env(safe-area-inset-top, 0px) + var(--barra-h) + 6px);
+  right: max(12px, env(safe-area-inset-right, 0px));
+  width: min(380px, calc(100vw - 24px));
+  max-height: calc(100vh - var(--barra-h) - 24px); overflow: auto;
+  background: var(--papel); color: var(--tinta);
+  border-radius: 20px; padding: 16px;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.35);
+  display: grid; gap: 12px;
+  animation: entra-tela 0.22s ease both;
+}
+.pm-topo { display: flex; align-items: center; justify-content: space-between; }
+.pm-topo strong { display: inline-flex; align-items: center; gap: 8px; font-family: var(--f-display); font-weight: 400; font-size: 1.15rem; letter-spacing: 0.02em; }
+.pm-topo strong .ic { color: var(--violeta); }
+.pm-fechar { width: 36px; height: 36px; border-radius: 10px; border: 0; background: #F1EDFA; color: var(--tinta); display: grid; place-items: center; }
+.pm-fechar:hover { background: #E4DEF3; }
+.pm-linha { display: flex; align-items: center; justify-content: space-between; font-weight: 700; }
+.pm-chave { width: 54px; height: 30px; border-radius: 999px; border: 0; background: #CFC8E8; position: relative; transition: background 0.2s; flex: none; }
+.pm-chave span { position: absolute; top: 3px; left: 3px; width: 24px; height: 24px; border-radius: 50%; background: #fff; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); transition: transform 0.2s; }
+.pm-chave[aria-checked="true"] { background: var(--verde); }
+.pm-chave[aria-checked="true"] span { transform: translateX(24px); }
+.pm-vol { display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 12px; font-weight: 600; }
+.pm-vol input { width: 100%; accent-color: var(--violeta); }
+.pm-onde { font-size: 0.9rem; color: var(--tinta-2); display: grid; gap: 2px; }
+.pm-onde strong { color: var(--tinta); font-size: 1rem; }
+.pm-opcoes { display: grid; gap: 8px; }
+.pm-op { display: grid; grid-template-columns: 34px 1fr 18px; align-items: center; gap: 10px; text-align: left; padding: 10px 12px; border-radius: 14px; border: 2px solid #E4DEF3; background: #fff; color: var(--tinta); cursor: pointer; font: inherit; }
+.pm-op:hover { border-color: #C9BFEA; }
+.pm-op[aria-checked="true"] { border-color: var(--violeta); background: #F4EEFF; }
+.pm-num { width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; font-weight: 800; background: #EFEAFB; }
+.pm-op[aria-checked="true"] .pm-num { background: var(--violeta); color: #fff; }
+.pm-txt b { display: block; font-size: 0.98rem; line-height: 1.25; }
+.pm-txt small { display: block; font-size: 0.8rem; color: var(--tinta-2); line-height: 1.3; margin-top: 2px; }
+.pm-eq { display: inline-flex; align-items: flex-end; gap: 2px; height: 16px; }
+.pm-eq i { width: 4px; height: 6px; background: var(--violeta); border-radius: 2px; }
+.pm-eq.tocando i { animation: pm-eq 0.9s ease-in-out infinite; }
+.pm-eq.tocando i:nth-child(2) { animation-delay: 0.2s; }
+.pm-eq.tocando i:nth-child(3) { animation-delay: 0.4s; }
+@keyframes pm-eq { 0%, 100% { height: 4px; } 50% { height: 16px; } }
+.pm-nota { margin: 0; font-size: 0.8rem; color: var(--tinta-2); line-height: 1.4; }
+.lista-musicas { display: grid; gap: 6px; padding-left: 18px; }
+@media (prefers-reduced-motion: reduce) { .pm-eq.tocando i { animation: none; height: 12px; } .painel-musica { animation: none; } }

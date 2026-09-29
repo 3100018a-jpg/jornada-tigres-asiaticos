@@ -5,7 +5,7 @@
 (function () {
   'use strict';
   var A = window.Arte, QUESTOES = window.QUESTOES, FASES = window.FASES, D = window.DADOS;
-  var E = window.Embaralhar, SOM = window.Sons, ILUS = window.ILUSTRACOES, GRAF = window.GRAFICOS, GU = window.GraficosUtil;
+  var MUS = window.Musica, E = window.Embaralhar, SOM = window.Sons, ILUS = window.ILUSTRACOES, GRAF = window.GRAFICOS, GU = window.GraficosUtil;
   var app = document.getElementById('app');
   var barraMeio = document.getElementById('barra-meio');
   var placar = document.getElementById('placar');
@@ -22,7 +22,7 @@
   /* ------------------------------------------------ progresso salvo */
   var CHAVE = 'jornada-tigres-asiaticos-v1';
   function lerSalvo() { try { return JSON.parse(localStorage.getItem(CHAVE) || '{}') || {}; } catch (e) { return {}; } }
-  var salvo = Object.assign({ nome: '', fases: {}, recorde: 0, insignias: [], efeitos: true, musica: false }, lerSalvo());
+  var salvo = Object.assign({ nome: '', fases: {}, recorde: 0, insignias: [], efeitos: true, musica2: true, volMusica: 0.5, faixas: {} }, lerSalvo());
   function gravar() { try { localStorage.setItem(CHAVE, JSON.stringify(salvo)); } catch (e) { /* armazenamento indisponível */ } }
 
   var partida = null;
@@ -138,6 +138,7 @@
   function fasesConcluidas() { return FASES.filter(function (f) { return salvo.fases[f.n] && salvo.fases[f.n].feita; }).length; }
 
   function telaInicio() {
+    trilha('inicio');
     hud();
     var html = '<section class="tela tela-inicio">' +
       '<div class="capa"><div class="capa-arte">' + ILUS.capa() + '</div>' +
@@ -170,6 +171,7 @@
 
   /* ================================================ TRILHA DA JORNADA */
   function telaTrilha() {
+    trilha('jornada');
     hud({ titulo: 'Jornada', cor: '#FF8A1F' });
     var s = '<section class="tela"><span class="rotulo-caps">Modo Jornada</span><h1 class="titulo-tela" data-foco>A rota dos Tigres</h1>' +
       '<p class="sub-tela">Cada porto é uma fase da história. Complete as cinco em ordem, como na aula, ou escolha a que quiser revisar. Acerte pelo menos 70% para ganhar a insígnia da fase.</p>' +
@@ -194,6 +196,7 @@
 
   /* ================================================ INTRODUÇÃO DA FASE */
   function telaIntro(n) {
+    trilha('fase' + n);
     var f = FASES[n - 1];
     hud({ titulo: 'Fase ' + n + ' · ' + f.titulo, cor: f.cor });
     var s = '<section class="tela"><span class="rotulo-caps">Fase ' + n + ' de 5 · ' + f.periodo + '</span><h1 class="titulo-tela" data-foco>' + f.titulo + '</h1>' +
@@ -228,6 +231,7 @@
     }, extra || {});
   }
   function iniciarFase(n) {
+    trilha('fase' + n);
     novaPartida('jornada', montarFase(n), { fase: n });
     som('rugido');
     telaQuestao();
@@ -496,6 +500,7 @@
 
   /* ================================================ CERTIFICADO */
   function telaCertificado() {
+    trilha('jornada');
     hud({ titulo: 'Certificado', cor: '#FFD23F' });
     var total = 0; FASES.forEach(function (f) { total += (salvo.fases[f.n] && salvo.fases[f.n].pontos) || 0; });
     var data = new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
@@ -526,6 +531,7 @@
   limpar.push(pararRelogios);
 
   function telaRelampagoInicio() {
+    trilha('relampago');
     hud({ titulo: 'Relâmpago', cor: '#FF3D8B' });
     var s = '<section class="tela"><span class="rotulo-caps">Modo Relâmpago</span><h1 class="titulo-tela" data-foco>90 segundos. Quantas você acerta?</h1>' +
       '<div class="intro-grade"><div class="cartao cartao-ilus">' + ILUS.tigreSalto() + '</div><div class="cartao intro-texto"><h2>Como funciona</h2><ul class="lista-pontos" style="--cor:var(--magenta)">' +
@@ -623,6 +629,7 @@
   /* ================================================ DUELO */
   var dueloCfg = { t1: 'Time Tigre', t2: 'Time Dragão', rodadas: 5, tempo: 30 };
   function telaDueloConfig() {
+    trilha('duelo');
     hud({ titulo: 'Duelo', cor: '#8250E0' });
     var s = '<section class="tela"><span class="rotulo-caps">Modo Duelo</span><h1 class="titulo-tela" data-foco>Dois times, uma tela</h1>' +
       '<p class="sub-tela">Projete o jogo na sala e divida a turma em dois times. Os times respondem em turnos alternados; cada acerto vale 100 pontos, com bônus por rapidez.</p>' +
@@ -698,6 +705,7 @@
 
   /* ================================================ EXPLORAR */
   function telaExplorar(aba) {
+    trilha('explorar');
     partida = null;
     hud({ titulo: 'Explorar', cor: '#19C3E6' });
     var abas = [['mapa', 'mapa', 'Mapa'], ['graficos', 'grafico', 'Gráficos'], ['curiosidades', 'lampada', 'Curiosidades'], ['tempo', 'relogio', 'Linha do tempo']];
@@ -794,6 +802,7 @@
 
   /* ================================================ PROFESSOR */
   function telaProfessor() {
+    trilha('inicio');
     hud({ titulo: 'Para o professor', cor: '#FFD23F' });
     var nq = QUESTOES.filter(function (q) { return q.tipo === 'multipla'; }).length, nm = QUESTOES.length - nq;
     var s = '<section class="tela prof"><div><span class="rotulo-caps">Guia rápido</span><h1 class="titulo-tela" data-foco>Para o professor</h1>' +
@@ -807,6 +816,8 @@
       '<li><strong>Duelo</strong>: projete na lousa e divida a turma em dois times que respondem em turnos.</li>' +
       '<li><strong>Explorar</strong>: mapa interativo, gráficos com tabelas, curiosidades e linha do tempo para apoiar a explicação.</li>' +
       '<li>Depois de cada resposta aparece uma explicação e, muitas vezes, uma curiosidade. Vale pausar e discutir com a turma.</li></ul></div>' +
+      '<div class="cartao"><h3>Músicas</h3><p>Cada parte do jogo tem 3 músicas originais, compostas para o jogo com instrumentos do Leste e do Sudeste da Ásia. Para trocar, ajustar o volume ou desligar, use o botão de música no alto da tela.</p><ul class="lista-musicas">' +
+        Object.keys(window.MUSICAS || {}).map(function (k) { return '<li><strong>' + esc(nomeTrilha(k)) + ':</strong> ' + window.MUSICAS[k].map(function (f) { return esc(f.nome); }).join(' · ') + '</li>'; }).join('') + '</ul></div>' +
       '<div class="cartao"><h3>Sobre as questões</h3><ul><li>O banco tem ' + nq + ' questões de múltipla escolha e ' + nm + ' missões no mapa, todas com imagem, gráfico ou mapa.</li>' +
       '<li>Cada questão tem uma única alternativa correta. A posição da correta é sorteada a cada vez, com equilíbrio entre A, B, C e D.</li>' +
       '<li>As distratoras foram escritas com tamanho parecido com o da correta, para que o tamanho não denuncie a resposta.</li>' +
@@ -814,7 +825,7 @@
       '<li>O mapa é ilustrativo, com fronteiras simplificadas desenhadas para o jogo. Não serve para medir distâncias ou áreas.</li></ul></div>' +
       '<div class="cartao"><h3>Fontes dos dados</h3><ul class="fontes">' + D.fontes.map(function (f) { return '<li>' + esc(f.t) + (f.u ? ' — <a href="' + esc(f.u) + '" target="_blank" rel="noopener">' + esc(f.u) + '</a>' : '') + '</li>'; }).join('') + '</ul></div>' +
       '<div class="cartao"><h3>Progresso salvo</h3><p>O progresso fica guardado apenas neste navegador. Em computadores compartilhados, apague antes de trocar de estudante.</p><div id="apagar-box"><button type="button" class="btn claro pequeno" id="btn-apagar">Apagar progresso deste navegador</button></div></div>' +
-      '<div class="cartao"><h3>Créditos</h3><p>Ilustrações, mapa, mascote, gráficos e sons foram criados especialmente para este jogo, em código (SVG e Web Audio). Fontes tipográficas: Bungee, Lexend e IBM Plex Mono (Google Fonts, licença SIL Open Font License).</p></div>' +
+      '<div class="cartao"><h3>Créditos</h3><p>Ilustrações, mapa, mascote, gráficos, efeitos sonoros e as 30 músicas foram criados especialmente para este jogo, em código (SVG e Web Audio). Fontes tipográficas: Bungee, Lexend e IBM Plex Mono (Google Fonts, licença SIL Open Font License).</p></div>' +
       '<div class="linha-botoes"><button type="button" class="btn fantasma" data-ir="inicio">' + ic('casa') + 'Início</button></div></section>';
     mostrar(s, function () {
       ligarNavegacao();
@@ -839,7 +850,8 @@
       '<li><strong>Missões no mapa:</strong> clique no país pedido. Use o zoom para achar os pequenos, como Singapura e Hong Kong.</li>' +
       '<li><strong>Pontos:</strong> 100 por acerto, bônus por rapidez e multiplicador para acertos seguidos. A dica custa metade dos pontos.</li>' +
       '<li><strong>Estrelas:</strong> 50% de acertos = 1 estrela, 70% = 2 estrelas e insígnia, 90% = 3 estrelas.</li>' +
-      '<li>Termine as 5 fases da Jornada para ganhar o <strong>certificado</strong>.</li></ol>' +
+      '<li>Termine as 5 fases da Jornada para ganhar o <strong>certificado</strong>.</li>' +
+      '<li><strong>Música:</strong> o botão de música, no alto, mostra 3 músicas para cada parte do jogo e o volume.</li></ol>' +
       '<div class="linha-botoes"><button type="button" class="btn laranja" id="fechar-como">Entendi!</button></div></div>';
     document.body.appendChild(el);
     var fechar = function () { el.remove(); document.removeEventListener('keydown', esc_); };
@@ -902,25 +914,104 @@
     bEf.setAttribute('aria-pressed', String(salvo.efeitos));
     bEf.innerHTML = ic(salvo.efeitos ? 'som' : 'mudo');
     bEf.title = salvo.efeitos ? 'Desligar efeitos sonoros' : 'Ligar efeitos sonoros';
-    bMu.setAttribute('aria-pressed', String(salvo.musica));
-    bMu.innerHTML = ic(salvo.musica ? 'musica' : 'semMusica');
-    bMu.title = salvo.musica ? 'Desligar música' : 'Ligar música';
+    bMu.removeAttribute('aria-pressed');
+    bMu.setAttribute('aria-haspopup', 'dialog');
+    bMu.setAttribute('aria-expanded', String(!!painel));
+    bMu.setAttribute('aria-label', 'Música: ' + (salvo.musica2 ? 'ligada' : 'desligada') + '. Abrir opções de música');
+    bMu.classList.toggle('desligada', !salvo.musica2);
+    bMu.innerHTML = ic(salvo.musica2 ? 'musica' : 'semMusica');
+    bMu.title = 'Música';
   }
   bEf.addEventListener('click', function () {
     salvo.efeitos = !salvo.efeitos; gravar();
     SOM.ligarEfeitos(salvo.efeitos); SOM.cfg.efeitos = salvo.efeitos;
     pintarSom(); som('clique');
   });
-  bMu.addEventListener('click', function () {
-    salvo.musica = !salvo.musica; gravar();
-    SOM.iniciar(); SOM.ligarMusica(salvo.musica);
+
+  /* ================================================ MÚSICA: trilha de cada tela e painel */
+  var NOMES_TRILHA = { inicio: 'Tela inicial', jornada: 'Jornada (trilha das fases)', relampago: 'Relâmpago', duelo: 'Duelo', explorar: 'Explorar' };
+  function nomeTrilha(id) {
+    var m = /^fase(\d)$/.exec(id);
+    if (m) { var f = FASES[+m[1] - 1]; return 'Fase ' + m[1] + ' · ' + (f ? f.titulo : ''); }
+    return NOMES_TRILHA[id] || id;
+  }
+  function trilha(id) { if (MUS) MUS.contexto(id); pintarPainel(); }
+  var painel = null;
+  function abrirPainel() {
+    if (painel) { fecharPainel(true); return; }
+    painel = document.createElement('div');
+    painel.className = 'painel-musica';
+    painel.setAttribute('role', 'dialog');
+    painel.setAttribute('aria-label', 'Música');
+    document.body.appendChild(painel);
+    pintarPainel();
     pintarSom();
-  });
+    setTimeout(function () { document.addEventListener('pointerdown', foraDoPainel, true); }, 0);
+    document.addEventListener('keydown', escPainel, true);
+    var foco = painel.querySelector('.pm-op[aria-checked="true"]') || painel.querySelector('button');
+    if (foco) foco.focus();
+  }
+  function fecharPainel(devolverFoco) {
+    if (!painel) return;
+    painel.remove(); painel = null;
+    document.removeEventListener('pointerdown', foraDoPainel, true);
+    document.removeEventListener('keydown', escPainel, true);
+    pintarSom();
+    if (devolverFoco) bMu.focus();
+  }
+  function foraDoPainel(e) { if (painel && !painel.contains(e.target) && !bMu.contains(e.target)) fecharPainel(false); }
+  function escPainel(e) { if (e.key === 'Escape') { e.stopPropagation(); fecharPainel(true); } }
+  function pintarPainel() {
+    if (!painel || !MUS) return;
+    var st = MUS.estado(), id = st.contexto, ops = MUS.opcoes(id), escolha = MUS.escolhida(id);
+    var focado = document.activeElement && painel.contains(document.activeElement) ? document.activeElement.getAttribute('data-foco-pm') : null;
+    painel.innerHTML =
+      '<div class="pm-topo"><strong>' + ic('musica') + 'Música</strong><button type="button" class="pm-fechar" data-foco-pm="fechar" aria-label="Fechar">' + ic('x') + '</button></div>' +
+      '<div class="pm-linha"><span id="pm-rotulo">Música ' + (st.ligada ? 'ligada' : 'desligada') + '</span><button type="button" class="pm-chave" data-foco-pm="chave" role="switch" aria-checked="' + st.ligada + '" aria-labelledby="pm-rotulo"><span></span></button></div>' +
+      '<label class="pm-vol"><span>Volume</span><input type="range" min="0" max="100" step="5" value="' + Math.round(st.volume * 100) + '" data-foco-pm="vol"></label>' +
+      '<div class="pm-onde">Músicas desta parte do jogo:<strong>' + esc(nomeTrilha(id)) + '</strong></div>' +
+      '<div class="pm-opcoes" role="radiogroup" aria-label="Escolha a música">' + ops.map(function (o, i) {
+        var sel = i === escolha;
+        return '<button type="button" class="pm-op" role="radio" aria-checked="' + sel + '" data-i="' + i + '" data-foco-pm="op' + i + '"><span class="pm-num">' + (i + 1) + '</span><span class="pm-txt"><b>' + esc(o.nome) + '</b><small>' + esc(o.desc) + '</small></span>' +
+          (sel && st.ligada ? '<span class="pm-eq' + (st.tocando ? ' tocando' : '') + '" aria-hidden="true"><i></i><i></i><i></i></span>' : '<span class="pm-eq vazio" aria-hidden="true"></span>') + '</button>';
+      }).join('') + '</div>' +
+      '<p class="pm-nota">Cada parte do jogo tem 3 músicas próprias, todas originais e compostas para o jogo. A escolha fica salva neste navegador.</p>';
+    $('.pm-fechar', painel).addEventListener('click', function () { fecharPainel(true); });
+    $('.pm-chave', painel).addEventListener('click', function () {
+      salvo.musica2 = !salvo.musica2; gravar();
+      MUS.iniciarAudio(); MUS.ligar(salvo.musica2);
+      pintarSom(); pintarPainel();
+    });
+    var vol = $('.pm-vol input', painel);
+    vol.addEventListener('input', function () { MUS.iniciarAudio(); MUS.volume(vol.value / 100); });
+    vol.addEventListener('change', function () { salvo.volMusica = vol.value / 100; gravar(); });
+    $$('.pm-op', painel).forEach(function (b) {
+      b.addEventListener('click', function () {
+        var i = +b.getAttribute('data-i');
+        salvo.faixas[id] = i;
+        if (!salvo.musica2) { salvo.musica2 = true; MUS.ligar(true); }
+        gravar();
+        MUS.iniciarAudio(); MUS.escolher(id, i);
+        pintarSom(); pintarPainel();
+      });
+    });
+    $('.pm-opcoes', painel).addEventListener('keydown', function (e) { // setas trocam a opção, como num grupo de rádio
+      var d = e.key === 'ArrowDown' || e.key === 'ArrowRight' ? 1 : e.key === 'ArrowUp' || e.key === 'ArrowLeft' ? -1 : 0;
+      if (!d) return;
+      e.preventDefault();
+      var bs = $$('.pm-op', painel), atualI = bs.indexOf(document.activeElement), prox = bs[(atualI + d + bs.length) % bs.length];
+      if (prox) prox.click();
+    });
+    if (focado) { var alvo = painel.querySelector('[data-foco-pm="' + focado + '"]'); if (alvo) alvo.focus(); }
+    else if (document.activeElement === document.body) { var sel2 = painel.querySelector('.pm-op[aria-checked="true"]'); if (sel2) sel2.focus(); }
+  }
+  bMu.addEventListener('click', function () { som('clique'); abrirPainel(); });
+  if (MUS) MUS.aoMudar(function () { if (painel) { var eq = painel.querySelector('.pm-op[aria-checked="true"] .pm-eq'); if (eq) eq.classList.toggle('tocando', !!MUS.estado().tocando); } });
   document.getElementById('btn-marca').addEventListener('click', function () { som('clique'); ir('inicio'); });
   document.getElementById('btn-marca').innerHTML = iconeMarca() + '<span>Jornada dos Tigres</span>';
   var primeiroToque = function () {
     SOM.iniciar();
-    if (salvo.musica) SOM.ligarMusica(true);
+    if (MUS) MUS.iniciarAudio();
     document.removeEventListener('pointerdown', primeiroToque, true);
     document.removeEventListener('keydown', primeiroToque, true);
   };
@@ -931,6 +1022,7 @@
   function iniciar(dados) {
     if (dados && dados.salvo) Object.assign(salvo, dados.salvo);
     SOM.cfg.efeitos = salvo.efeitos;
+    if (MUS) MUS.configurar({ ligada: salvo.musica2, volume: salvo.volMusica, escolhas: salvo.faixas || {} });
     pintarSom();
     telaInicio();
   }

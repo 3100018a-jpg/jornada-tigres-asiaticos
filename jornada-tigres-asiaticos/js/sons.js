@@ -1,8 +1,7 @@
 /* Sons do jogo, sintetizados na hora com a Web Audio API (sem arquivos). */
 (function () {
-  var ctx = null, mestre = null, efeitos = null, musica = null, ruidoBuf = null;
-  var cfg = { efeitos: true, musica: false };
-  var musicaTimer = null, proximaNota = 0, passo = 0;
+  var ctx = null, mestre = null, efeitos = null, ruidoBuf = null;
+  var cfg = { efeitos: true };
 
   function iniciar() {
     if (ctx) { if (ctx.state === 'suspended') ctx.resume(); return true; }
@@ -15,7 +14,6 @@
       comp.threshold.value = -14; comp.ratio.value = 4;
       mestre.connect(comp); comp.connect(ctx.destination);
       efeitos = ctx.createGain(); efeitos.gain.value = cfg.efeitos ? 0.55 : 0; efeitos.connect(mestre);
-      musica = ctx.createGain(); musica.gain.value = 0; musica.connect(mestre);
       ruidoBuf = ctx.createBuffer(1, ctx.sampleRate * 1.5, ctx.sampleRate);
       var d = ruidoBuf.getChannelData(0);
       for (var i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
@@ -102,40 +100,32 @@
     virar: function (t) { ruido(t, 0.12, { de: 1500, ate: 3500, q: 2, vol: 0.07 }); }
   };
 
+  // efeitos marcantes abaixam a música por um instante, para serem bem ouvidos
+  var FORTES = { correto: 1.1, errado: 1.1, combo: 1.3, vitoria: 2.2, insignia: 1.6, rugido: 1.4, tempo: 1.2, navio: 1.6 };
   function tocar(nome) {
     if (!cfg.efeitos) return;
     if (!iniciar()) return;
     var f = SONS[nome];
     if (f) try { f(ctx.currentTime + 0.01); } catch (e) { /* ignora */ }
+    if (FORTES[nome] && window.Musica) window.Musica.abaixar(0.4, FORTES[nome]);
   }
 
-  // ------------------------------------------------ música de fundo (opcional)
-  // escala pentatônica, 96 bpm, melodia gerada em ciclos de 16 passos
-  var MEL = [72, 76, 79, 76, 81, 79, 76, 74, 72, 74, 76, 79, 84, 81, 79, 76];
-  var BAIXO = [48, 48, 55, 55, 57, 57, 52, 52];
-  function agendar() {
+  // a música de fundo fica em js/musica.js e usa este mesmo contexto de áudio
+  function contexto() { return ctx; }
+  function destino() { return mestre; }
+
+  // pausa todo o som quando a aba fica escondida e retoma ao voltar
+  var pausadoPorAba = false;
+  document.addEventListener('visibilitychange', function () {
     if (!ctx) return;
-    var seg = 60 / 96 / 2;
-    while (proximaNota < ctx.currentTime + 0.25) {
-      var i = passo % 16;
-      if (i % 2 === 0 || Math.random() < 0.35) tom(N(MEL[(i + Math.floor(passo / 32) * 2) % 16]), proximaNota, seg * 1.8, { tipo: 'triangle', vol: 0.05, destino: musica, ataque: 0.02 });
-      if (i % 4 === 0) tom(N(BAIXO[(passo / 4) % 8 | 0]), proximaNota, seg * 3.6, { tipo: 'sine', vol: 0.08, destino: musica, ataque: 0.03 });
-      if (i % 2 === 1) ruido(proximaNota, 0.04, { de: 7000, q: 3, vol: 0.015, destino: musica });
-      proximaNota += seg; passo++;
-    }
-  }
-  function ligarMusica(on) {
-    cfg.musica = on;
-    if (!on) { if (musica && ctx) musica.gain.setTargetAtTime(0, ctx.currentTime, 0.2); if (musicaTimer) { clearInterval(musicaTimer); musicaTimer = null; } return; }
-    if (!iniciar()) return;
-    musica.gain.setTargetAtTime(0.55, ctx.currentTime, 0.4);
-    proximaNota = ctx.currentTime + 0.1;
-    if (!musicaTimer) musicaTimer = setInterval(agendar, 100);
-  }
+    if (document.hidden) { if (ctx.state === 'running') { ctx.suspend(); pausadoPorAba = true; } }
+    else if (pausadoPorAba) { ctx.resume(); pausadoPorAba = false; }
+  });
+
   function ligarEfeitos(on) {
     cfg.efeitos = on;
     if (efeitos && ctx) efeitos.gain.setTargetAtTime(on ? 0.55 : 0, ctx.currentTime, 0.05);
   }
 
-  window.Sons = { iniciar: iniciar, tocar: tocar, ligarMusica: ligarMusica, ligarEfeitos: ligarEfeitos, cfg: cfg };
+  window.Sons = { iniciar: iniciar, tocar: tocar, ligarEfeitos: ligarEfeitos, contexto: contexto, destino: destino, cfg: cfg };
 })();

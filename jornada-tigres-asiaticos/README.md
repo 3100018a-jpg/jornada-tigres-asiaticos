@@ -11,7 +11,8 @@ e trabalha as habilidades **EF09GE10** e **EF09GE11** da BNCC.
 - Mapa interativo da Ásia com zoom, camadas e ficha de cada país
 - 8 gráficos com dados reais, legenda, dica ao passar o mouse e tabela
 - Curiosidades depois das respostas, linha do tempo de 1945 a 2024
-- Mascote (Kai), animações, confete, sons e música, tudo criado em código
+- **30 músicas originais de temática oriental**: 3 opções para cada parte do jogo
+- Mascote (Kai), animações, confete e efeitos sonoros, tudo criado em código
 - Funciona no computador, no celular e projetado na lousa, sem login e sem anúncios
 
 ---
@@ -29,6 +30,46 @@ Há também a tela **Para o professor**, com as habilidades da BNCC, sugestões 
 fontes dos dados e um botão para apagar o progresso salvo no navegador.
 
 **Teclado:** teclas 1–4 ou A–D escolhem a alternativa; Enter avança para a próxima questão.
+
+---
+
+## Músicas
+
+O jogo tem **30 músicas originais**, suaves e de temática oriental: 3 opções para cada parte.
+A música troca sozinha quando o jogador muda de tela. No botão de música, no alto da tela,
+dá para ligar ou desligar, ajustar o volume e escolher uma das 3 opções da parte em que se está.
+A escolha fica salva no navegador.
+
+| Parte do jogo | Opção 1 | Opção 2 | Opção 3 |
+|---|---|---|---|
+| Tela inicial | **Lanternas no Porto**: guzheng (cítara chinesa) com ondas do mar | **Jardim de Bambu**: shakuhachi (flauta de bambu japonesa) e koto, com água corrente | **Brisa do Leste**: erhu (violino chinês de duas cordas) e yangqin, com sinos |
+| Jornada (trilha das fases) | **Rumo ao Oriente**: dizi (flauta chinesa) e guzheng em ritmo de viagem | **Ilhas do Sol**: sanshin de Okinawa e castanholas sanba, na escala de Ryukyu | **Mapa das Estrelas**: celesta e shō (órgão de boca japonês) |
+| Fase 1 · A Ásia agrária | **Chuva no Arrozal**: shakuhachi e koto na escala in, com chuva fina e sapos | **Canção da Colheita**: dizi e guzheng numa canção de trabalho no campo | **Entardecer no Campo**: sapos, grilos e vento, com flauta distante e tigelas cantantes |
+| Fase 2 · O salto dos Tigres | **Cordas de Seul**: gayageum (cítara coreana) e daegeum (flauta coreana), com janggu | **Fábricas ao Amanhecer**: pipa (alaúde chinês) e erhu, com blocos de madeira | **Tigre Veloz**: koto em ritmo acelerado, fue (flauta japonesa) e taiko suave |
+| Fase 3 · Chips, portos e o mundo | **Circuito de Jade**: sinos e piano elétrico com eco, o Oriente eletrônico | **Luzes de Hong Kong**: yangqin (saltério chinês) e erhu, com o mar do porto | **Nanômetro**: dois sinos que se encaixam como engrenagens |
+| Fase 4 · Os Novos Tigres | **Gamelão de Java**: saron, bonang, gongos e flauta suling, na escala slendro | **Rio Chao Phraya**: ranat ek (xilofone tailandês), khim e címbalos ching | **Kulintang das Ilhas**: gongos kulintang das Filipinas, com agung e tambor dabakan |
+| Fase 5 · Desafios do século XXI | **Energia Limpa**: piano elétrico, erhu e cordas num tema de esperança | **Horizonte Verde**: vento, pássaros, tigelas cantantes e o shō | **Cidade Inteligente**: koto em arpejos, sinos com eco e batida leve |
+| Relâmpago | **Relâmpago de Seda**: guzheng em disparada, dizi e taiko | **Corrida no Mercado**: pipa em trêmulo, blocos de madeira e tambores leves | **Chuva de Verão**: gamelão de Bali em ritmo rápido |
+| Duelo | **Duelo de Cordas**: koto e guzheng respondem um ao outro, com taiko | **Festival das Lanternas**: dizi, guzheng, tambor e pequenos pratos | **Tambores de Seul**: janggu e buk (tambores coreanos), daegeum e gongo jing |
+| Explorar | **Jardim Zen**: fonte de bambu (shishi-odoshi), sino de vento, koto e shakuhachi | **Templo na Névoa**: sinos de templo, tigelas cantantes e o shō | **Mercado Flutuante**: khim (saltério tailandês), água e gongos suaves |
+
+Como funcionam:
+
+- As músicas são **tocadas pelo próprio navegador** (Web Audio API). Não há arquivos de áudio
+  para baixar, e nenhuma música de terceiros foi usada: todas foram compostas para este jogo,
+  inspiradas em estilos da China, do Japão, da Coreia, da Indonésia, da Tailândia e das Filipinas.
+- Os instrumentos também são criados em código: cítaras e alaúdes (guzheng, koto, gayageum,
+  pipa, yangqin, sanshin, khim), flautas de bambu, erhu, gamelão, gongos, sinos, shō, tambores e
+  sons da natureza.
+- As escalas são as de cada tradição: pentatônicas chinesas, escalas in, yo e de Okinawa
+  (Japão), slendro (gamelão) e a escala tailandesa de 7 tons iguais.
+- A música abaixa por um instante quando toca um efeito sonoro e pausa quando a aba do
+  navegador fica escondida.
+- O navegador só libera o som depois do primeiro clique ou toque na página.
+
+Quem quiser mexer nas músicas encontra as composições em `js/musicas.js` (cada nota é
+escrita como `grau:duração` na escala da música; o arquivo explica a notação) e os
+instrumentos em `js/musica.js`.
 
 ---
 
@@ -89,7 +130,9 @@ js/ilustracoes.js          as ilustrações das questões (desenhadas em SVG)
 js/graficos.js             os gráficos
 js/mapa-geo.js             contornos do mapa (arquivo gerado, não editar à mão)
 js/mapa.js                 mapa interativo (zoom, camadas, missões)
-js/sons.js                 efeitos sonoros e música (Web Audio, sem arquivos de áudio)
+js/sons.js                 efeitos sonoros (Web Audio, sem arquivos de áudio)
+js/musicas.js              as 30 músicas (composições)
+js/musica.js               instrumentos e tocador das músicas
 js/jogo.js                 telas, regras, pontuação e certificado
 ferramentas/checar-questoes.js   confere o banco de questões
 ferramentas/gerar_mapa.py        gera js/mapa-geo.js
@@ -242,8 +285,9 @@ python3 ferramentas/gerar_mapa.py
 ## Créditos
 
 - Conteúdo baseado no Material Digital SEDUC-SP (Geografia, 9º ano, 4º bimestre, Aula 6).
-- Ilustrações, mascote, bandeiras, mapa, gráficos, sons e música foram criados especialmente
-  para este jogo, em código (SVG e Web Audio). Não há imagens nem áudios de terceiros.
+- Ilustrações, mascote, bandeiras, mapa, gráficos, efeitos sonoros e as 30 músicas foram criados
+  especialmente para este jogo, em código (SVG e Web Audio). Não há imagens, músicas nem áudios
+  de terceiros.
 - Fontes tipográficas: Bungee, Lexend e IBM Plex Mono (Google Fonts, licença SIL Open Font License).
 
 ## Licença
